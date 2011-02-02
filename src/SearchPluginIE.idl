@@ -1,0 +1,64 @@
+// SearchPluginIE.idl : IDL source for SearchPluginIE
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (SearchPluginIE.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(a817e7a2-43fa-11d0-9e44-00aa00b6770a),
+	dual,
+	helpstring("IComponentRegistrar Interface"),
+	pointer_default(unique)
+]
+interface IComponentRegistrar : IDispatch
+{
+	[id(1)]	HRESULT Attach([in] BSTR bstrPath);
+	[id(2)]	HRESULT RegisterAll();
+	[id(3)]	HRESULT UnregisterAll();
+	[id(4)]	HRESULT GetComponents([out] SAFEARRAY(BSTR)* pbstrCLSIDs, [out] SAFEARRAY(BSTR)* pbstrDescriptions);
+	[id(5)]	HRESULT RegisterComponent([in] BSTR bstrCLSID);
+	[id(6)] HRESULT UnregisterComponent([in] BSTR bstrCLSID);
+};
+
+[
+	object,
+	uuid(260860E0-09B6-4743-9650-5FB0D928609A),
+	dual,
+	nonextensible,
+	helpstring("IPlugin Interface"),
+	pointer_default(unique)
+]
+interface IPlugin : IDispatch{
+	[id(0)] HRESULT Navigate([in] BSTR text, [in] BSTR escText, [in] IUnknown* disp, [in] float vers);
+};
+[
+	uuid(1B53859D-1350-4e87-A8D0-23A25FF75BC5),
+	version(1.0),
+	helpstring("SearchPluginIE 1.0 Type Library"),
+	custom(a817e7a1-43fa-11d0-9e44-00aa00b6770a,"{B414B0D0-AA6D-49b3-836E-F0E4BA93F14D}"),
+]
+library SearchPluginIELib
+{
+	importlib("stdole2.tlb");
+
+	[
+		uuid(B414B0D0-AA6D-49b3-836E-F0E4BA93F14D),
+		helpstring("ComponentRegistrar Class")
+	]
+	coclass CompReg
+	{
+		[default] interface IComponentRegistrar;
+	};
+	[
+		uuid(110E5031-E03B-49F1-A78D-F570DE0D0252),
+		helpstring("Plugin Class")
+	]
+	coclass Plugin
+	{
+		[default] interface IPlugin;
+	};
+};

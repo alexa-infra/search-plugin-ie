@@ -1,0 +1,22 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		'%APPID%' = s 'SearchPluginIE'
+		'SearchPluginIE.DLL'
+		{
+			val AppID = s '%APPID%'
+		}
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {B414B0D0-AA6D-49b3-836E-F0E4BA93F14D} = s 'CompReg Class'
+		{
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			'TypeLib' = s '{1B53859D-1350-4e87-A8D0-23A25FF75BC5}'
+		}
+	}
+}
